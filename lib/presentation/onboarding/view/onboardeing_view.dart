@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class OnboardeingView extends StatelessWidget {
@@ -6,6 +5,14 @@ class OnboardeingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Stack(
+          //1. image
+          Image.asset()
+          //2. bottom container
+        )
+        )
+        );
   }
 }
