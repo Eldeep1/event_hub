@@ -26,10 +26,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BlocProvider(
-        create: (_) => SplashCubit(splashRepo)..checkStartup(),
-        child: const SplashView(),
+    return RepositoryProvider<SplashRepo>.value(
+      value: splashRepo,
+      child: MaterialApp(
+        home: BlocProvider(
+          create: (_) => SplashCubit(splashRepo)..checkStartup(),
+          child: const SplashView(),
+        ),
       ),
     );
   }

@@ -1,8 +1,12 @@
+import 'package:event_hub/domain/repository/splash_repo/splash_repo.dart';
 import 'package:event_hub/presentation/onboarding/view_model/onboarding_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingCubit extends Cubit<OnboardingStates> {
-  OnboardingCubit(super.initialState);
+  final SplashRepo splashRepo;
+
+  OnboardingCubit(this.splashRepo) : super(OnboardingInitialState());
+
   int currentIndex = 0;
   final items = [
     const OnboardingItem(
@@ -25,16 +29,18 @@ class OnboardingCubit extends Cubit<OnboardingStates> {
     ),
   ];
 
-  void nextClicked() {
+  Future<void> nextClicked() async {
     if (currentIndex < items.length - 1) {
       currentIndex++;
       emit(OnboardingNextState());
     } else {
+      await splashRepo.setOnboardingCompleted();
       emit(OnboardingSkipState());
     }
   }
 
-  void skipClicked() {
+  Future<void> skipClicked() async {
+    await splashRepo.setOnboardingCompleted();
     emit(OnboardingSkipState());
   }
 

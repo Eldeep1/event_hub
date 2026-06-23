@@ -1,3 +1,4 @@
+import 'package:event_hub/domain/repository/splash_repo/splash_repo.dart';
 import 'package:event_hub/presentation/auth/login/login_view.dart';
 import 'package:event_hub/presentation/onboarding/view/onboarding_page.dart';
 import 'package:event_hub/presentation/onboarding/view_model/onboarding_cubit.dart';
@@ -11,7 +12,7 @@ class OnboardeingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => OnboardingCubit(OnboardingInitialState()),
+      create: (context) => OnboardingCubit(context.read<SplashRepo>()),
       child: BlocListener<OnboardingCubit, OnboardingStates>(
         listener: (context, state) {
           if (state is OnboardingSkipState) {
