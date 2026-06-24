@@ -1,23 +1,17 @@
+import 'package:event_hub/data/model/event_model.dart';
 import 'package:event_hub/presentation/home/view/widgets/upcoming_events/upcoming_events_avatars.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
-  final Color imageBackgroundColor;
-  final String title;
-  final String location;
+  final EventModel eventModel;
 
-  const EventCard({
-    super.key,
-    required this.imageBackgroundColor,
-    required this.title,
-    required this.location,
-  });
+  const EventCard({super.key, required this.eventModel});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 240, // Fixed width for the card
-      padding: const EdgeInsets.all(10), // Padding inside the white card
+      width: 240,
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -32,12 +26,14 @@ class EventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // --- Top Half: Image Area ---
           Container(
             height: 130,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: imageBackgroundColor,
+              image: DecorationImage(
+                image: NetworkImage(eventModel.imageUrl),
+                fit: BoxFit.cover,
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Stack(
@@ -47,7 +43,10 @@ class EventCard extends StatelessWidget {
                   top: 8,
                   left: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.85),
                       borderRadius: BorderRadius.circular(10),
@@ -95,11 +94,11 @@ class EventCard extends StatelessWidget {
               ],
             ),
           ),
-          
+
           const SizedBox(height: 14),
 
           Text(
-            title,
+            eventModel.title,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -108,17 +107,17 @@ class EventCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          
+
           const SizedBox(height: 10),
 
           Row(
             children: [
-              const OverlappingAvatars(), 
+              const OverlappingAvatars(),
               const SizedBox(width: 8),
               const Text(
                 "+20 Going",
                 style: TextStyle(
-                  color: Color(0xFF4A43EC), 
+                  color: Color(0xFF4A43EC),
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),
@@ -126,22 +125,15 @@ class EventCard extends StatelessWidget {
             ],
           ),
 
-          const Spacer(), 
+          const Spacer(),
           Row(
             children: [
-              const Icon(
-                Icons.location_on,
-                color: Colors.grey,
-                size: 16,
-              ),
+              const Icon(Icons.location_on, color: Colors.grey, size: 16),
               const SizedBox(width: 4),
               Expanded(
                 child: Text(
-                  location,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 13,
-                  ),
+                  eventModel.location,
+                  style: const TextStyle(color: Colors.grey, fontSize: 13),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
