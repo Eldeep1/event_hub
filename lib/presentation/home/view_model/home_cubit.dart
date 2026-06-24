@@ -40,6 +40,7 @@ class HomeCubit extends Cubit<HomeStates> {
         events: events,
       ));
     } catch (e) {
+      print(e.toString());
       emit(HomeErrorState(errorMessage: e.toString()));
     }
   }

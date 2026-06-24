@@ -1,8 +1,8 @@
 import 'package:event_hub/domain/repository/splash_repo/splash_repo.dart';
-import 'package:event_hub/presentation/auth/login/login_view.dart';
 import 'package:event_hub/presentation/onboarding/view/onboarding_page.dart';
 import 'package:event_hub/presentation/onboarding/view_model/onboarding_cubit.dart';
 import 'package:event_hub/presentation/onboarding/view_model/onboarding_states.dart';
+import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,9 +16,9 @@ class OnboardeingView extends StatelessWidget {
       child: BlocListener<OnboardingCubit, OnboardingStates>(
         listener: (context, state) {
           if (state is OnboardingSkipState) {
-            Navigator.pushReplacement(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (_) => const LoginView()),
+              AppRoutes.loginScreen,
             );
           }
         },

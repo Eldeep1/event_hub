@@ -4,6 +4,7 @@ import 'package:event_hub/presentation/auth/login/widgets/login_form_widget.dart
 import 'package:event_hub/presentation/auth/login/widgets/login_header.dart';
 import 'package:event_hub/presentation/auth/widgets/auth_footer_widget.dart';
 import 'package:event_hub/presentation/bottom_navigation/view/bottom_nav_view.dart';
+import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
@@ -25,9 +26,9 @@ class LoginView extends StatelessWidget {
               AuthButtonsWidget(
                 mainButtonText: "Sign In",
                 onMainButtonPressed: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(builder: (context) =>  BottomNavView()),
+                    AppRoutes.homeScreen,
                   );
                 },
               ),
@@ -36,9 +37,9 @@ class LoginView extends StatelessWidget {
                 text: "Don't have an account?",
                 buttonText: "Sign Up",
                 onButtonPressed: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterView()),
+                    AppRoutes.registerScreen,
                   );
                 },
               ),
