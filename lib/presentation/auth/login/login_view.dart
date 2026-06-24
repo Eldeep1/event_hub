@@ -3,6 +3,7 @@ import 'package:event_hub/presentation/auth/widgets/auth_buttons_widget.dart';
 import 'package:event_hub/presentation/auth/login/widgets/login_form_widget.dart';
 import 'package:event_hub/presentation/auth/login/widgets/login_header.dart';
 import 'package:event_hub/presentation/auth/widgets/auth_footer_widget.dart';
+import 'package:event_hub/presentation/bottom_navigation/view/bottom_nav_view.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
@@ -23,7 +24,12 @@ class LoginView extends StatelessWidget {
               const SizedBox(height: 36),
               AuthButtonsWidget(
                 mainButtonText: "Sign In",
-                onMainButtonPressed: () {},
+                onMainButtonPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  BottomNavView()),
+                  );
+                },
               ),
               const SizedBox(height: 32),
               AuthFooterWidget(
