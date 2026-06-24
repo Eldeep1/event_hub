@@ -26,9 +26,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const Color brandColor = Color(0xFF5669FF);
     return RepositoryProvider<SplashRepo>.value(
       value: splashRepo,
       child: MaterialApp(
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: brandColor,
+            primary: brandColor,
+          ),
+          scaffoldBackgroundColor: Colors.white,
+        ),
         home: BlocProvider(
           create: (_) => SplashCubit(splashRepo)..checkStartup(),
           child: const SplashView(),
