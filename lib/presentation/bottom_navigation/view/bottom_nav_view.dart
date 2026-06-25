@@ -1,6 +1,7 @@
 import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_cubit.dart';
 import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_states.dart';
 import 'package:event_hub/presentation/bottom_navigation/view/widgets/bottom_nav_icon_view.dart';
+import 'package:event_hub/presentation/events_view/view/events_view.dart';
 import 'package:event_hub/presentation/home/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,7 @@ class BottomNavView extends StatelessWidget {
 
   final List<Widget> _pages = [
     const HomeView(),
-    const Center(child: Text("Events View", style: TextStyle(fontSize: 24))),
+    const EventsPage(),
     const Center(child: Text("Map View", style: TextStyle(fontSize: 24))),
     const Center(child: Text("Profile View", style: TextStyle(fontSize: 24))),
   ];
