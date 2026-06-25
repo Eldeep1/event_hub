@@ -8,4 +8,6 @@ static const String homeScreen = '/home';
 static const String eventDetailsScreen = '/event_details';
 static const String organizerProfileScreen = '/organizer_profile';
 static const String searchScreen = '/search';
+static const String userProfileScreen = '/user_profile';
+
 }

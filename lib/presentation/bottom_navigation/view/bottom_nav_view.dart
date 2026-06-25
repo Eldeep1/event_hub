@@ -3,6 +3,7 @@ import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_states
 import 'package:event_hub/presentation/bottom_navigation/view/widgets/bottom_nav_icon_view.dart';
 import 'package:event_hub/presentation/events_view/view/events_view.dart';
 import 'package:event_hub/presentation/home/view/home_view.dart';
+import 'package:event_hub/presentation/profile_view/view/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,7 @@ class BottomNavView extends StatelessWidget {
     const HomeView(),
     const EventsPage(),
     const Center(child: Text("Map View", style: TextStyle(fontSize: 24))),
-    const Center(child: Text("Profile View", style: TextStyle(fontSize: 24))),
+    const ProfileView(),
   ];
 
   @override
