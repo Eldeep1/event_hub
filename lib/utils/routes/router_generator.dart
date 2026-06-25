@@ -4,6 +4,7 @@ import 'package:event_hub/presentation/bottom_navigation/view/bottom_nav_view.da
 import 'package:event_hub/presentation/event_details/view/event_details_view.dart';
 import 'package:event_hub/presentation/onboarding/view/onboardeing_view.dart';
 import 'package:event_hub/presentation/organizer_profile/view/organizer_profile_view.dart';
+import 'package:event_hub/presentation/search_view/view/search_view.dart';
 import 'package:event_hub/presentation/splash/view/splash_view.dart';
 import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (_) => EventDetailsView());
       case AppRoutes.organizerProfileScreen:
         return MaterialPageRoute(builder: (_) => OrganizerProfileView());
+      case AppRoutes.searchScreen:
+        return MaterialPageRoute(builder: (_) => SearchView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -9,25 +9,25 @@ class HomeHeaderSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // 1. Left Side: Search Icon, Divider, and TextField
+       
         Expanded(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Icon(Icons.search_rounded, color: Colors.white, size: 28),
               const SizedBox(width: 12),
-              // The vertical divider
+             
               Container(
                 width: 1.5,
                 height: 24,
                 color: Colors.white.withOpacity(0.3),
               ),
               const SizedBox(width: 12),
-              // The actual text input field
+
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    
+                    Navigator.pushNamed(context, '/search');
                      },
                   child: Container(
                     
