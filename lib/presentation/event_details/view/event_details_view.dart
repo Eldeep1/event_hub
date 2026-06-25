@@ -1,3 +1,6 @@
+import 'package:event_hub/presentation/event_details/view/widgets/event_details_builder.dart';
+import 'package:event_hub/presentation/event_details/view/widgets/event_details_buy_button.dart';
+import 'package:event_hub/presentation/event_details/view/widgets/event_details_header_view.dart';
 import 'package:flutter/material.dart';
 
 class EventDetailsView extends StatelessWidget {
@@ -5,12 +8,33 @@ class EventDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final eventModel = ModalRoute.of(context)!.settings.arguments as dynamic;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Event Details'),
-      ),
-      body: const Center(
-        child: Text('Event Details Content Here'),
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            // Add bottom padding so content isn't hidden behind the floating button
+            padding: const EdgeInsets.only(bottom: 100),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EventDetailsHeaderView(
+                  eventModel: eventModel,
+                ), // From previous implementation
+                buildEventDetails(eventModel),
+              ],
+            ),
+          ),
+
+          // Floating Buy Ticket Button
+          Positioned(
+            bottom: 30,
+            left: 32,
+            right: 32,
+            child: buildBuyTicketButton(),
+          ),
+        ],
       ),
     );
   }
