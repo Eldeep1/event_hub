@@ -3,12 +3,12 @@ import 'package:event_hub/presentation/auth/register/view/register_view.dart';
 import 'package:event_hub/presentation/bottom_navigation/view/bottom_nav_view.dart';
 import 'package:event_hub/presentation/event_details/view/event_details_view.dart';
 import 'package:event_hub/presentation/onboarding/view/onboardeing_view.dart';
+import 'package:event_hub/presentation/organizer_profile/view/organizer_profile_view.dart';
 import 'package:event_hub/presentation/splash/view/splash_view.dart';
 import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class RouterGenerator {
-
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.splashScreen:
@@ -20,15 +20,15 @@ class RouterGenerator {
       case AppRoutes.registerScreen:
         return MaterialPageRoute(builder: (_) => const RegisterView());
       case AppRoutes.homeScreen:
-        return MaterialPageRoute(builder: (_) =>  BottomNavView());
-        case AppRoutes.eventDetailsScreen:
-        return MaterialPageRoute(builder: (_) =>  EventDetailsView());
+        return MaterialPageRoute(builder: (_) => BottomNavView());
+      case AppRoutes.eventDetailsScreen:
+        return MaterialPageRoute(builder: (_) => EventDetailsView());
+      case AppRoutes.organizerProfileScreen:
+        return MaterialPageRoute(builder: (_) => OrganizerProfileView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
+            body: Center(child: Text('No route defined for ${settings.name}')),
           ),
         );
     }

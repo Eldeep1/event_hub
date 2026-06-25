@@ -39,7 +39,7 @@ Widget buildEventDetails(dynamic eventModel) {
           const SizedBox(height: 24),
 
           // Organizer Profile
-          buildOrganizerTile(),
+          BuildOrganizerTile(),
           const SizedBox(height: 24),
 
           // About Event
