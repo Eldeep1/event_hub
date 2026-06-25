@@ -1,8 +1,6 @@
-import 'package:event_hub/presentation/auth/login/login_view.dart';
-import 'package:event_hub/presentation/home/view/home_view.dart';
-import 'package:event_hub/presentation/onboarding/view/onboardeing_view.dart';
 import 'package:event_hub/presentation/splash/view_model/cubit/splash_cubit.dart';
 import 'package:event_hub/presentation/splash/view_model/states/splash_state.dart';
+import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,23 +12,24 @@ class SplashView extends StatelessWidget {
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
         if (state is SplashGoHome) {
-          Navigator.pushReplacement(
+          
+          Navigator.pushReplacementNamed(
             context,
-            MaterialPageRoute(builder: (_) => const HomeView()),
+            AppRoutes.homeScreen,
           );
         }
 
         if (state is SplashGoLogin) {
-          Navigator.pushReplacement(
+          Navigator.pushReplacementNamed(
             context,
-            MaterialPageRoute(builder: (_) => const LoginView()),
+            AppRoutes.loginScreen,
           );
         }
 
         if (state is SplashGoOnboarding) {
-          Navigator.pushReplacement(
+          Navigator.pushReplacementNamed(
             context,
-            MaterialPageRoute(builder: (_) => const OnboardeingView()),
+            AppRoutes.onboardingScreen,
           );
         }
       },

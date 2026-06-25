@@ -3,6 +3,8 @@ import 'package:event_hub/data/repoisitory/splash_repo/splash_repo_imp.dart';
 import 'package:event_hub/domain/repository/splash_repo/splash_repo.dart';
 import 'package:event_hub/presentation/splash/view/splash_view.dart';
 import 'package:event_hub/presentation/splash/view_model/cubit/splash_cubit.dart';
+import 'package:event_hub/utils/routes/app_routes.dart';
+import 'package:event_hub/utils/routes/router_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +32,8 @@ class MyApp extends StatelessWidget {
     return RepositoryProvider<SplashRepo>.value(
       value: splashRepo,
       child: MaterialApp(
+        initialRoute: AppRoutes.splashScreen,
+        onGenerateRoute: RouterGenerator.generateRoute,
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         home: BlocProvider(
           create: (_) => SplashCubit(splashRepo)..checkStartup(),
-          child: const SplashView(),
+          child:  SplashView(),
         ),
       ),
     );
