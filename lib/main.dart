@@ -1,5 +1,8 @@
 import 'package:event_hub/data/data_source/local/shared_preferences.dart';
+import 'package:event_hub/data/data_source/remote/event_remote_data_source.dart';
+import 'package:event_hub/data/repoisitory/event_repo/event_repo_imp.dart';
 import 'package:event_hub/data/repoisitory/splash_repo/splash_repo_imp.dart';
+import 'package:event_hub/domain/repository/event_repo.dart';
 import 'package:event_hub/domain/repository/splash_repo.dart';
 import 'package:event_hub/presentation/splash/view/splash_view.dart';
 import 'package:event_hub/presentation/splash/view_model/cubit/splash_cubit.dart';
@@ -17,20 +20,26 @@ Future<void> main() async {
   final storage = SharedPreferencesStorage(prefs);
 
   final splashRepo = SplashRepoImp(preferences: storage);
+  final eventRemoteDataSource = EventRemoteDataSource();
+  final eventRepo = EventRepoImp(remoteDataSource: eventRemoteDataSource);
 
-  runApp(MyApp(splashRepo: splashRepo));
+  runApp(MyApp(splashRepo: splashRepo, eventRepo: eventRepo));
 }
 
 class MyApp extends StatelessWidget {
   final SplashRepo splashRepo;
+  final EventRepository eventRepo;
 
-  const MyApp({super.key, required this.splashRepo});
+  const MyApp({super.key, required this.splashRepo, required this.eventRepo});
 
   @override
   Widget build(BuildContext context) {
     const Color brandColor = Color(0xFF5669FF);
-    return RepositoryProvider<SplashRepo>.value(
-      value: splashRepo,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<SplashRepo>.value(value: splashRepo),
+        RepositoryProvider<EventRepository>.value(value: eventRepo),
+      ],
       child: MaterialApp(
         initialRoute: AppRoutes.splashScreen,
         onGenerateRoute: RouterGenerator.generateRoute,
@@ -44,7 +53,7 @@ class MyApp extends StatelessWidget {
         ),
         home: BlocProvider(
           create: (_) => SplashCubit(splashRepo)..checkStartup(),
-          child:  SplashView(),
+          child: SplashView(),
         ),
       ),
     );

@@ -1,56 +1,65 @@
-
-import 'package:event_hub/domain/model/event_model.dart';
+import 'package:event_hub/domain/repository/event_repo.dart';
 import 'package:event_hub/presentation/events_view/view_model/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EventsCubit extends Cubit<EventsState> {
-  EventsCubit()
-      : super(EventsState(selectedTab: EventTab.upcoming, events: [])) {
-    // Initialize by loading the default tab (upcoming)
+  final EventRepository eventRepository;
+
+  EventsCubit({required this.eventRepository})
+    : super(EventsState(selectedTab: EventTab.upcoming, events: [])) {
     fetchEvents(EventTab.upcoming);
   }
 
-  void switchTab(EventTab tab) {
+  Future<void> switchTab(EventTab tab) async {
     if (state.selectedTab == tab) return;
-    
+
     emit(state.copyWith(selectedTab: tab, isLoading: true));
-    fetchEvents(tab);
+
+    if (tab == EventTab.upcoming && state.upcomingEvents.isNotEmpty) {
+      emit(state.copyWith(events: state.upcomingEvents, isLoading: false));
+      return;
+    }
+
+    if (tab == EventTab.past && state.pastEvents.isNotEmpty) {
+      emit(state.copyWith(events: state.pastEvents, isLoading: false));
+      return;
+    }
+
+    await fetchEvents(tab);
   }
 
-  void fetchEvents(EventTab tab) async {
-    // Simulate network delay
-    await Future.delayed(const Duration(milliseconds: 300));
+  Future<void> fetchEvents(EventTab tab) async {
+    try {
+      emit(state.copyWith(isLoading: true, errorMessage: null));
+      final now = DateTime.now();
+      if (tab == EventTab.upcoming) {
+        final upcomingEvents = await eventRepository.getEvents(
+          startDateTime: now,
+          sortAsc: true,
+        );
+        emit(
+          state.copyWith(
+            upcomingEvents: upcomingEvents,
+            events: upcomingEvents,
+            isLoading: false,
+          ),
+        );
+        return;
+      }
 
-    if (tab == EventTab.upcoming) {
-      
-      emit(state.copyWith(events: [], isLoading: false));
-    } else {
-      
-      final mockPastEvents = [
-        EventModel(
-          title: 'Jo Malone London’s Mother’s Day Presents',
-          date: 'Wed, Apr 28 • 5:30 PM',
-          location: 'Radius Gallery • Santa Cruz, CA',
-          imageUrl: 'https://i.pravatar.cc/150?img=1', 
-          description: '', 
-          time: '', price: 200, organizerName: '', 
+      final pastEvents = await eventRepository.getEvents(
+        endDateTime: now,
+        sortAsc: false,
+      );
+      emit(
+        state.copyWith(
+          pastEvents: pastEvents,
+          events: pastEvents,
+          isLoading: false,
         ),
-        EventModel(
-          title: 'A Virtual Evening of Smooth Jazz',
-          date: 'Sat, May 1 • 2:00 PM',
-          location: 'Lot 13 • Oakland, CA',
-          imageUrl: 'https://i.pravatar.cc/150?img=2',
-           description: '', time: '', price: 399, organizerName: '',
-        ),
-        EventModel(
-          title: 'Women\'s Leadership Conference 2021',
-          date: 'Sat, Apr 24 • 1:30 PM',
-          location: '53 Bush St • San Francisco, CA',
-          imageUrl: 'https://i.pravatar.cc/150?img=3', 
-          description: '', time: '', price: 500, organizerName: '',
-        ),
-      ];
-      emit(state.copyWith(events: mockPastEvents, isLoading: false));
+      );
+    } catch (e) {
+      emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
     }
   }
-} 
+}

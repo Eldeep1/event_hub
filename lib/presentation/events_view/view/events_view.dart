@@ -1,3 +1,4 @@
+import 'package:event_hub/domain/repository/event_repo.dart';
 import 'package:event_hub/presentation/events_view/view/widgets/events_view_empty_state.dart';
 import 'package:event_hub/presentation/events_view/view/widgets/events_view_events_list.dart';
 import 'package:event_hub/presentation/events_view/view/widgets/events_view_toggle_switch.dart';
@@ -12,7 +13,8 @@ class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EventsCubit(),
+      create: (context) =>
+          EventsCubit(eventRepository: context.read<EventRepository>()),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -48,7 +50,7 @@ class EventsPage extends StatelessWidget {
                   child: state.isLoading
                       ? const Center(child: CircularProgressIndicator())
                       : state.events.isEmpty
-                      ? EventsViewEmptyState()
+                      ? EventsViewEmptyState(tab: state.selectedTab)
                       : EventsViewEventList(events: state.events),
                 ),
               ],
