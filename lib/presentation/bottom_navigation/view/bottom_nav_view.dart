@@ -1,7 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_cubit.dart';
 import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_states.dart';
 import 'package:event_hub/presentation/bottom_navigation/view/widgets/bottom_nav_icon_view.dart';
+import 'package:event_hub/presentation/events_view/view/events_view.dart';
 import 'package:event_hub/presentation/home/view/home_view.dart';
+import 'package:event_hub/presentation/profile_view/view/profile_view.dart';
+import 'package:event_hub/presentation/saved_events/view/saved_events_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,9 +14,9 @@ class BottomNavView extends StatelessWidget {
 
   final List<Widget> _pages = [
     const HomeView(),
-    const Center(child: Text("Events View", style: TextStyle(fontSize: 24))),
-    const Center(child: Text("Map View", style: TextStyle(fontSize: 24))),
-    const Center(child: Text("Profile View", style: TextStyle(fontSize: 24))),
+    const EventsPage(),
+    const SavedEventsView(),
+    const ProfileView(),
   ];
 
   @override
@@ -46,7 +50,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.explore,
-                      label: 'Explore',
+                      label: context.tr("explore"),
                       isActive: currentIndex == 0,
                       onTap: () => context.read<BottomNavCubit>().changeTab(0),
                     ),
@@ -54,7 +58,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.calendar_today,
-                      label: 'Events',
+                      label: context.tr("events"),
                       isActive: currentIndex == 1,
                       onTap: () => context.read<BottomNavCubit>().changeTab(1),
                     ),
@@ -62,8 +66,8 @@ class BottomNavView extends StatelessWidget {
                   const Spacer(), // FAB space
                   Expanded(
                     child: BottomNavIcon(
-                      icon: Icons.location_on,
-                      label: 'Map',
+                      icon: Icons.favorite,
+                      label: context.tr("saved_events"),
                       isActive: currentIndex == 2,
                       onTap: () => context.read<BottomNavCubit>().changeTab(2),
                     ),
@@ -71,7 +75,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.person,
-                      label: 'Profile',
+                      label: context.tr("profile"),
                       isActive: currentIndex == 3,
                       onTap: () => context.read<BottomNavCubit>().changeTab(3),
                     ),

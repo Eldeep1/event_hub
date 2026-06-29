@@ -1,5 +1,5 @@
 import 'package:event_hub/data/data_source/local/app_preferences.dart';
-import 'package:event_hub/domain/repository/splash_repo/splash_repo.dart';
+import 'package:event_hub/domain/repository/splash_repo.dart';
 import 'package:event_hub/utils/constants.dart';
 
 class SplashRepoImp extends SplashRepo {
@@ -17,7 +17,12 @@ class SplashRepoImp extends SplashRepo {
   }
 
   @override
+  Future<void> setLoggedIn(bool loggedIn) async {
+    await preferences.saveBool(Constants.loggedIn, loggedIn);
+  }
+
+  @override
   Future<void> setOnboardingCompleted() async {
-    preferences.saveBool(Constants.onboardingCompleted, true);
+    await preferences.saveBool(Constants.onboardingCompleted, true);
   }
 }

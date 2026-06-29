@@ -1,0 +1,204 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:event_hub/domain/model/event_model.dart';
+import 'package:event_hub/presentation/saved_events/view_model/cubit/saved_events_cubit.dart';
+import 'package:event_hub/presentation/saved_events/view_model/states/saved_events_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class EventDetailsHeaderView extends StatelessWidget {
+  const EventDetailsHeaderView({super.key, this.eventModel});
+
+  final EventModel? eventModel;
+  @override
+  Widget build(BuildContext context) {
+    const double headerHeight = 350;
+    const double imageHeight = 300;
+    return SizedBox(
+      height: headerHeight,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: imageHeight,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // Use Image.network so we can provide a semantic label (accessibility)
+                Image.network(
+                  eventModel?.imageUrl ??
+                      'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1000',
+                  fit: BoxFit.cover,
+                  semanticLabel:
+                      eventModel?.description ?? context.tr('event_image'),
+                ),
+                // Gradient overlay
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.7),
+                        Colors.transparent,
+                      ],
+                      stops: const [0.0, 0.4],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      context.tr('event_details'),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: BlocBuilder<SavedEventsCubit, SavedEventsState>(
+                        builder: (context, state) {
+                          final isSaved = state.isSaved;
+                          return IconButton(
+                            icon: Icon(
+                              isSaved ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.white,
+                            ),
+                            onPressed: eventModel == null
+                                ? null
+                                : () {
+                                    context
+                                        .read<SavedEventsCubit>()
+                                        .toggleSavedEvent(eventModel!);
+                                  },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 20, // Pushes it down so it overlaps the bottom of the image
+            left: 32,
+            right: 32,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  // Stacked Avatars
+                  SizedBox(
+                    width: 80,
+                    height: 40,
+                    child: Stack(
+                      children: [
+                        _buildAvatar('https://i.pravatar.cc/100?img=1', 0),
+                        _buildAvatar('https://i.pravatar.cc/100?img=2', 20),
+                        _buildAvatar('https://i.pravatar.cc/100?img=3', 40),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+
+                  // Going Text
+                  Text(
+                    context.tr('going_count'),
+                    style: const TextStyle(
+                      color: Color(0xFF5B67FA), // Matches the blue in the image
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const Spacer(),
+
+                  // Invite Button
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF5B67FA),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                    ),
+                    child: Text(
+                      context.tr('invite'),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _buildAvatar(String url, double leftOffset) {
+  return Positioned(
+    left: leftOffset,
+    child: Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white, width: 2), // The white stroke
+      ),
+      child: CircleAvatar(radius: 18, backgroundImage: NetworkImage(url)),
+    ),
+  );
+}

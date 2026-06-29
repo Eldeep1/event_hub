@@ -1,4 +1,4 @@
-import 'package:event_hub/data/model/event_model.dart';
+import 'package:event_hub/domain/model/event_model.dart';
 import 'package:event_hub/presentation/home/view/widgets/upcoming_events/upcoming_events_avatars.dart';
 import 'package:flutter/material.dart';
 
@@ -55,19 +55,19 @@ class EventCard extends StatelessWidget {
                         color: Colors.white.withOpacity(0.85),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
                           Text(
-                            "10",
-                            style: TextStyle(
+                            _eventDay(eventModel),
+                            style: const TextStyle(
                               color: Color(0xFFF0635A), // Red color from design
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            "JUNE",
-                            style: TextStyle(
+                            _eventMonth(eventModel),
+                            style: const TextStyle(
                               color: Color(0xFFF0635A),
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
@@ -77,7 +77,7 @@ class EventCard extends StatelessWidget {
                       ),
                     ),
                   ),
-      
+
                   // Top Right: Bookmark Icon
                   Positioned(
                     top: 8,
@@ -98,9 +98,9 @@ class EventCard extends StatelessWidget {
                 ],
               ),
             ),
-      
+
             const SizedBox(height: 14),
-      
+
             Text(
               eventModel.title,
               style: const TextStyle(
@@ -111,9 +111,9 @@ class EventCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-      
+
             const SizedBox(height: 10),
-      
+
             Row(
               children: [
                 const OverlappingAvatars(),
@@ -128,7 +128,7 @@ class EventCard extends StatelessWidget {
                 ),
               ],
             ),
-      
+
             const Spacer(),
             Row(
               children: [
@@ -149,4 +149,59 @@ class EventCard extends StatelessWidget {
       ),
     );
   }
+
+  String _eventDay(EventModel event) {
+    final date = _parseEventDate(event.date);
+    if (date != null) {
+      return date.day.toString();
+    }
+
+    final match = RegExp(r'^(\d{1,2})').firstMatch(event.date.trim());
+    return match?.group(1) ?? '';
+  }
+
+  String _eventMonth(EventModel event) {
+    final date = _parseEventDate(event.date);
+    if (date != null) {
+      return _monthNames[date.month - 1].toUpperCase();
+    }
+
+    final lower = event.date.toLowerCase();
+    for (final month in _monthNames) {
+      if (lower.contains(month.toLowerCase())) {
+        return month.toUpperCase();
+      }
+    }
+    return '';
+  }
+
+  DateTime? _parseEventDate(String rawDate) {
+    final trimmed = rawDate.trim();
+    if (trimmed.isEmpty) {
+      return null;
+    }
+
+    final parsed = DateTime.tryParse(trimmed);
+    if (parsed != null) {
+      return parsed;
+    }
+
+    final sanitized = trimmed.replaceAll(',', '');
+    return DateTime.tryParse(sanitized);
+  }
+
+  static const List<String> _monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 }

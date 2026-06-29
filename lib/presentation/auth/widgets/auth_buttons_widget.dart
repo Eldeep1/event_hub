@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AuthButtonsWidget extends StatelessWidget {
@@ -38,13 +39,13 @@ class AuthButtonsWidget extends StatelessWidget {
           Text("OR", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
           const SizedBox(height: 8),
           SocialLoginButton(
-            buttonText: "Login with Google",
+            buttonText: context.tr('sign_in_google'),
             imagePath: 'assets/images/google_logo.png',
             onPressed: () {},
           ),
           const SizedBox(height: 19),
           SocialLoginButton(
-            buttonText: "Login with Facebook",
+            buttonText: context.tr('sign_in_facebook'),
             imagePath: 'assets/images/facebook_logo.png',
             onPressed: () {},
           ),

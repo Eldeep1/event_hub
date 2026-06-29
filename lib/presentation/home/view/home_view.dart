@@ -1,3 +1,4 @@
+import 'package:event_hub/domain/repository/event_repo.dart';
 import 'package:event_hub/presentation/home/view/widgets/header/home_header_view.dart';
 import 'package:event_hub/presentation/home/view/widgets/invite_card/home_invite_friend_card.dart';
 import 'package:event_hub/presentation/home/view/widgets/upcoming_events/home_upcoming_events_view.dart';
@@ -12,7 +13,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit()..fetchEvents(),
+      create: (context) =>
+          HomeCubit(eventRepository: context.read<EventRepository>())
+            ..fetchEvents(),
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(

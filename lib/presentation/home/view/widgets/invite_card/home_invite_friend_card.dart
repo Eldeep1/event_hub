@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeInviteFriendCard extends StatelessWidget {
@@ -31,8 +32,8 @@ class HomeInviteFriendCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Invite Your Friends",
+                   Text(
+                    context.tr("invite_your_friends"),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -48,7 +49,7 @@ class HomeInviteFriendCard extends StatelessWidget {
                       backgroundColor: Colors.white, // White button
                       foregroundColor: Colors.black, // Black text
                     ),
-                    child: const Text("Invite Now"),
+                    child: Text(context.tr("invite_now")),
                   ),
                 ],
               ),
