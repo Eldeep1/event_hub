@@ -1,6 +1,6 @@
 import 'package:event_hub/data/data_source/local/shared_preferences.dart';
 import 'package:event_hub/data/repoisitory/splash_repo/splash_repo_imp.dart';
-import 'package:event_hub/domain/repository/splash_repo/splash_repo.dart';
+import 'package:event_hub/domain/repository/splash_repo.dart';
 import 'package:event_hub/presentation/splash/view/splash_view.dart';
 import 'package:event_hub/presentation/splash/view_model/cubit/splash_cubit.dart';
 import 'package:event_hub/utils/routes/app_routes.dart';

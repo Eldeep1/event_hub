@@ -1,5 +1,5 @@
 
-import 'package:event_hub/data/model/event_model.dart';
+import 'package:event_hub/domain/model/event_model.dart';
 import 'package:event_hub/presentation/events_view/view_model/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,4 +1,4 @@
-import 'package:event_hub/data/model/event_model.dart';
+import 'package:event_hub/domain/model/event_model.dart';
 import 'package:event_hub/presentation/home/view/widgets/upcoming_events/upcoming_events_avatars.dart';
 import 'package:flutter/material.dart';
 

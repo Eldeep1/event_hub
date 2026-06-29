@@ -1,4 +1,4 @@
-import 'package:event_hub/data/model/event_model.dart';
+import 'package:event_hub/domain/model/event_model.dart';
 
 enum EventTab { upcoming, past }
 
