@@ -14,25 +14,53 @@ class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.splashScreen:
-        return MaterialPageRoute(builder: (_) => const SplashView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const SplashView(),
+        );
       case AppRoutes.onboardingScreen:
-        return MaterialPageRoute(builder: (_) => const OnboardeingView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const OnboardeingView(),
+        );
       case AppRoutes.loginScreen:
-        return MaterialPageRoute(builder: (_) => const LoginView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const LoginView(),
+        );
       case AppRoutes.registerScreen:
-        return MaterialPageRoute(builder: (_) => const RegisterView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const RegisterView(),
+        );
       case AppRoutes.homeScreen:
-        return MaterialPageRoute(builder: (_) => BottomNavView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BottomNavView(),
+        );
       case AppRoutes.eventDetailsScreen:
-        return MaterialPageRoute(builder: (_) => EventDetailsView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => EventDetailsView(),
+        );
       case AppRoutes.organizerProfileScreen:
-        return MaterialPageRoute(builder: (_) => OrganizerProfileView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => OrganizerProfileView(),
+        );
       case AppRoutes.searchScreen:
-        return MaterialPageRoute(builder: (_) => SearchView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => SearchView(),
+        );
       case AppRoutes.userProfileScreen:
-        return MaterialPageRoute(builder: (_) => ProfileView());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => ProfileView(),
+        );
       default:
         return MaterialPageRoute(
+          settings: settings,
           builder: (_) => Scaffold(
             body: Center(child: Text('No route defined for ${settings.name}')),
           ),

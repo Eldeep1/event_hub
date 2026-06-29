@@ -77,8 +77,7 @@ class EventResponse {
     return EventResponse(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
-      description:
-          json['info'] as String? ?? json['pleaseNote'] as String? ?? '',
+      description: _extractDescription(json),
       date: localDate,
       time: localTime,
       location: location,
@@ -87,6 +86,23 @@ class EventResponse {
       organizerName: organizerName,
       url: json['url'] as String? ?? '',
     );
+  }
+
+  static String _extractDescription(Map<String, dynamic> json) {
+    // Ticketmaster may provide description under different keys.
+    final candidates = [
+      json['info'],
+      json['pleaseNote'],
+      json['description'],
+      json['details'],
+      json['shortDescription'],
+      json['blurb'],
+    ];
+
+    for (final c in candidates) {
+      if (c is String && c.trim().isNotEmpty) return c.trim();
+    }
+    return '';
   }
 
   EventModel toDomain() {

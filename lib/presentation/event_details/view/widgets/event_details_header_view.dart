@@ -2,7 +2,7 @@ import 'package:event_hub/domain/model/event_model.dart';
 import 'package:flutter/material.dart';
 
 class EventDetailsHeaderView extends StatelessWidget {
-  const EventDetailsHeaderView({super.key,  this.eventModel});
+  const EventDetailsHeaderView({super.key, this.eventModel});
 
   final EventModel? eventModel;
   @override
@@ -20,27 +20,31 @@ class EventDetailsHeaderView extends StatelessWidget {
             left: 0,
             right: 0,
             height: imageHeight,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  // Replace with eventModel.imageUrl or your specific property
-                  image:  NetworkImage(
-                    eventModel?.imageUrl ?? 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1000',
-                  ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // Use Image.network so we can provide a semantic label (accessibility)
+                Image.network(
+                  eventModel?.imageUrl ??
+                      'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1000',
                   fit: BoxFit.cover,
+                  semanticLabel: eventModel?.description ?? 'Event image',
                 ),
-              ),
-              child: Container(
-
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black.withOpacity(0.7), Colors.transparent],
-                    stops: const [0.0, 0.4],
+                // Gradient overlay
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.7),
+                        Colors.transparent,
+                      ],
+                      stops: const [0.0, 0.4],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
 
