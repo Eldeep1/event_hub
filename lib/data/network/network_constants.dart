@@ -15,4 +15,6 @@ class NetworkConstants {
     }
     return params;
   }
+
+  static String eventDetailsPath(String id) => '/events/$id.json';
 }
