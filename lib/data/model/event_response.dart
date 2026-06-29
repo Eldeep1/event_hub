@@ -88,6 +88,20 @@ class EventResponse {
     );
   }
 
+  EventModel toDomain() {
+    return EventModel(
+      id: id,
+      title: name,
+      description: description,
+      date: date,
+      time: time,
+      location: location,
+      imageUrl: imageUrl,
+      price: price,
+      organizerName: organizerName,
+    );
+  }
+
   static String _extractDescription(Map<String, dynamic> json) {
     // Ticketmaster may provide description under different keys.
     final candidates = [
@@ -103,19 +117,6 @@ class EventResponse {
       if (c is String && c.trim().isNotEmpty) return c.trim();
     }
     return '';
-  }
-
-  EventModel toDomain() {
-    return EventModel(
-      title: name,
-      description: description,
-      date: date,
-      time: time,
-      location: location,
-      imageUrl: imageUrl,
-      price: price,
-      organizerName: organizerName,
-    );
   }
 
   static String _combineLocation(String venue, String city) {
