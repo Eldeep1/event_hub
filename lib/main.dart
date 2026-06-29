@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_hub/data/data_source/local/auth_local_data_source.dart';
 import 'package:event_hub/data/data_source/local/shared_preferences.dart';
 import 'package:event_hub/data/data_source/remote/event_remote_data_source.dart';
+import 'package:event_hub/data/repoisitory/auth_repo/auth_repo_imp.dart';
 import 'package:event_hub/data/repoisitory/event_repo/event_repo_imp.dart';
 import 'package:event_hub/data/repoisitory/splash_repo/splash_repo_imp.dart';
+import 'package:event_hub/domain/repository/auth_repo.dart';
 import 'package:event_hub/domain/repository/event_repo.dart';
 import 'package:event_hub/domain/repository/splash_repo.dart';
 import 'package:event_hub/presentation/splash/view/splash_view.dart';
@@ -23,6 +26,8 @@ Future<void> main() async {
   final splashRepo = SplashRepoImp(preferences: storage);
   final eventRemoteDataSource = EventRemoteDataSource();
   final eventRepo = EventRepoImp(remoteDataSource: eventRemoteDataSource);
+  final authLocalDataSource = await AuthLocalDataSource.getInstance();
+  final authRepo = AuthRepoImp(localDataSource: authLocalDataSource);
 
   runApp(
     EasyLocalization(
@@ -30,7 +35,11 @@ Future<void> main() async {
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       startLocale: const Locale('ar'),
-      child: MyApp(splashRepo: splashRepo, eventRepo: eventRepo),
+      child: MyApp(
+        splashRepo: splashRepo,
+        eventRepo: eventRepo,
+        authRepo: authRepo,
+      ),
     ),
   );
 }
@@ -38,8 +47,14 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   final SplashRepo splashRepo;
   final EventRepository eventRepo;
+  final AuthRepository authRepo;
 
-  const MyApp({super.key, required this.splashRepo, required this.eventRepo});
+  const MyApp({
+    super.key,
+    required this.splashRepo,
+    required this.eventRepo,
+    required this.authRepo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +63,7 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider<SplashRepo>.value(value: splashRepo),
         RepositoryProvider<EventRepository>.value(value: eventRepo),
+        RepositoryProvider<AuthRepository>.value(value: authRepo),
       ],
       child: MaterialApp(
         locale: context.locale,

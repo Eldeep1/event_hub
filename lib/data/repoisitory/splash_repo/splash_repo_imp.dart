@@ -17,7 +17,12 @@ class SplashRepoImp extends SplashRepo {
   }
 
   @override
+  Future<void> setLoggedIn(bool loggedIn) async {
+    await preferences.saveBool(Constants.loggedIn, loggedIn);
+  }
+
+  @override
   Future<void> setOnboardingCompleted() async {
-    preferences.saveBool(Constants.onboardingCompleted, true);
+    await preferences.saveBool(Constants.onboardingCompleted, true);
   }
 }
