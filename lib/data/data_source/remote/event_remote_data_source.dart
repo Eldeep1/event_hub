@@ -9,12 +9,21 @@ class EventRemoteDataSource {
   EventRemoteDataSource({ApiClient? apiClient})
     : apiClient = apiClient ?? ApiClient();
 
-  Future<List<EventResponse>> getEvents({String? keyword, int page = 0}) async {
+  Future<List<EventResponse>> getEvents({
+    String? keyword,
+    int page = 0,
+    DateTime? startDateTime,
+    DateTime? endDateTime,
+    bool sortAsc = true,
+  }) async {
     final response = await apiClient.get<Map<String, dynamic>>(
       NetworkConstants.eventsPath,
       queryParameters: NetworkConstants.eventsQueryParameters(
         keyword: keyword,
         page: page,
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
+        sortAsc: sortAsc,
       ),
     );
 

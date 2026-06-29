@@ -8,12 +8,29 @@ class NetworkConstants {
   static Map<String, dynamic> eventsQueryParameters({
     String? keyword,
     int page = 0,
+    DateTime? startDateTime,
+    DateTime? endDateTime,
+    bool sortAsc = true,
   }) {
-    final params = <String, dynamic>{'apikey': apiKey, 'page': page.toString()};
+    final params = <String, dynamic>{
+      'apikey': apiKey,
+      'page': page.toString(),
+      'sort': sortAsc ? 'date,asc' : 'date,desc',
+    };
     if (keyword != null && keyword.isNotEmpty) {
       params['keyword'] = keyword;
     }
+    if (startDateTime != null) {
+      params['startDateTime'] = _formatIsoUtc(startDateTime);
+    }
+    if (endDateTime != null) {
+      params['endDateTime'] = _formatIsoUtc(endDateTime);
+    }
     return params;
+  }
+
+  static String _formatIsoUtc(DateTime dateTime) {
+    return dateTime.toUtc().toIso8601String().split('.').first + 'Z';
   }
 
   static String eventDetailsPath(String id) => '/events/$id.json';
