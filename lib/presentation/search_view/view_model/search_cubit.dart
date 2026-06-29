@@ -31,6 +31,7 @@ class SearchCubit extends Cubit<SearchState> {
               title: e.title,
               date: e.date,
               imageUrl: e.imageUrl,
+              event: e,
             ),
           )
           .toList();
