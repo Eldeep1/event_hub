@@ -1,4 +1,4 @@
-import 'package:event_hub/presentation/search_view/view_model/search_cubit.dart';
+import 'package:event_hub/domain/model/search_event_model.dart';
 import 'package:flutter/material.dart';
 
 class SearchViewEventCardBuilder extends StatelessWidget {

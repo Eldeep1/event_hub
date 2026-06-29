@@ -10,11 +10,13 @@ class EventRepoImp extends EventRepository {
 
   @override
   Future<List<EventModel>> getEvents({
+    String? keyword,
     DateTime? startDateTime,
     DateTime? endDateTime,
     bool sortAsc = true,
   }) async {
     final eventResponses = await remoteDataSource.getEvents(
+      keyword: keyword,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
       sortAsc: sortAsc,

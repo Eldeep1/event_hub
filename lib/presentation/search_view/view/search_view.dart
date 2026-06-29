@@ -1,6 +1,8 @@
 import 'package:event_hub/presentation/search_view/view/widgets/search_view_event_card_builder.dart';
 import 'package:event_hub/presentation/search_view/view/widgets/search_view_search_bar.dart';
 import 'package:event_hub/presentation/search_view/view_model/search_cubit.dart';
+import 'package:event_hub/presentation/search_view/view_model/search_state.dart';
+import 'package:event_hub/domain/repository/event_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +12,8 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(),
+      create: (context) =>
+          SearchCubit(repo: RepositoryProvider.of<EventRepository>(context)),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -52,7 +55,9 @@ class SearchView extends StatelessWidget {
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                     itemBuilder: (context, index) {
-                      return SearchViewEventCardBuilder(event: state.filteredEvents[index]);
+                      return SearchViewEventCardBuilder(
+                        event: state.filteredEvents[index],
+                      );
                     },
                   );
                 },

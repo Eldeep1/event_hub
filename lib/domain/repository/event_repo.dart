@@ -3,6 +3,7 @@ import 'package:event_hub/domain/model/category_model.dart';
 
 abstract class EventRepository {
   Future<List<EventModel>> getEvents({
+    String? keyword,
     DateTime? startDateTime,
     DateTime? endDateTime,
     bool sortAsc = true,
