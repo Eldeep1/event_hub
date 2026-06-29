@@ -1,6 +1,7 @@
+import 'package:event_hub/domain/repository/splash_repo.dart';
+import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -46,7 +47,7 @@ class ProfileView extends StatelessWidget {
               backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11'),
             ),
             const SizedBox(height: 16),
-            
+
             const Text(
               'Ashfak Sayem',
               style: TextStyle(
@@ -56,7 +57,7 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // --- 2. Stats (Following / Followers) ---
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +73,7 @@ class ProfileView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            
+
             // --- 3. Edit Profile Button ---
             OutlinedButton.icon(
               onPressed: () {},
@@ -81,7 +82,10 @@ class ProfileView extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 foregroundColor: const Color(0xFF5B67FA),
                 side: const BorderSide(color: Color(0xFF5B67FA)),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 12,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -92,7 +96,7 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            
+
             // --- 4. About Me Section ---
             Align(
               alignment: Alignment.centerLeft,
@@ -117,13 +121,12 @@ class ProfileView extends StatelessWidget {
                       ),
                       children: [
                         const TextSpan(
-                          text: 'Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. ',
+                          text:
+                              'Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. ',
                         ),
                         TextSpan(
                           text: 'Read More ',
-                          style: const TextStyle(
-                            color: Color(0xFF5B67FA),
-                          ),
+                          style: const TextStyle(color: Color(0xFF5B67FA)),
                         ),
                         WidgetSpan(
                           alignment: PlaceholderAlignment.middle,
@@ -140,7 +143,7 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            
+
             // --- 5. Interest Section ---
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,7 +164,10 @@ class ProfileView extends StatelessWidget {
                   style: TextButton.styleFrom(
                     foregroundColor: const Color(0xFF5B67FA),
                     backgroundColor: const Color(0xFF5B67FA).withOpacity(0.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 4,
+                    ),
                     minimumSize: Size.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     shape: RoundedRectangleBorder(
@@ -177,7 +183,7 @@ class ProfileView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // --- 6. Interest Chips ---
             Align(
               alignment: Alignment.centerLeft,
@@ -186,7 +192,10 @@ class ProfileView extends StatelessWidget {
                 runSpacing: 12.0, // Vertical gap
                 children: interests.map((interest) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: interest.color,
                       borderRadius: BorderRadius.circular(20),
@@ -203,7 +212,29 @@ class ProfileView extends StatelessWidget {
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 40), // Bottom padding
+            const SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: () async {
+                await context.read<SplashRepo>().setLoggedIn(false);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.loginScreen,
+                  (route) => false,
+                );
+              },
+              icon: const Icon(Icons.logout_outlined),
+              label: const Text('Logout'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE53935),
+                foregroundColor: Colors.white,
+                minimumSize: const Size.fromHeight(50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            const SizedBox(height: 100), 
           ],
         ),
       ),
@@ -225,10 +256,7 @@ class ProfileView extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF747688),
-          ),
+          style: const TextStyle(fontSize: 14, color: Color(0xFF747688)),
         ),
       ],
     );
