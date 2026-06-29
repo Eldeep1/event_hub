@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BuildOrganizerTile extends StatelessWidget {
@@ -36,7 +37,7 @@ class BuildOrganizerTile extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Organizer',
+                  context.tr('organizer'),
                   style: TextStyle(fontSize: 13, color: Color(0xFF747688)),
                 ),
               ],
@@ -50,8 +51,8 @@ class BuildOrganizerTile extends StatelessWidget {
             color: const Color(0xFF5B67FA).withOpacity(0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Text(
-            'Follow',
+          child: Text(
+            context.tr('follow'),
             style: TextStyle(
               color: Color(0xFF5B67FA),
               fontWeight: FontWeight.w500,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/domain/model/event_model.dart';
 import 'package:event_hub/presentation/event_details/view/widgets/event_details_builder.dart';
 import 'package:event_hub/presentation/event_details/view/widgets/event_details_buy_button.dart';
@@ -12,9 +13,7 @@ class EventDetailsView extends StatelessWidget {
     final eventModel =
         ModalRoute.of(context)!.settings.arguments as EventModel?;
     if (eventModel == null) {
-      return const Scaffold(
-        body: Center(child: Text('No event data available')),
-      );
+      return Scaffold(body: Center(child: Text(context.tr('no_event_data'))));
     }
 
     return Scaffold(
@@ -28,7 +27,7 @@ class EventDetailsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EventDetailsHeaderView(eventModel: eventModel),
-                buildEventDetails(eventModel),
+                buildEventDetails(context, eventModel),
               ],
             ),
           ),

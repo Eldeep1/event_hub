@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class LoginFormWidget extends StatelessWidget {
@@ -9,13 +10,13 @@ class LoginFormWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Sign In",
+          context.tr('sign_in'),
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Email',
+          decoration:  InputDecoration(
+            labelText: context.tr('email'),
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.email),
             hintText: 'abc@example.com',
@@ -23,10 +24,10 @@ class LoginFormWidget extends StatelessWidget {
         ),
         const SizedBox(height: 19),
         TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Password',
+          decoration:  InputDecoration(
+            labelText: context.tr('password'),
             border: OutlineInputBorder(),
-            hintText: 'Enter your password',
+            hintText: context.tr('password_hint'),
             prefixIcon: Icon(Icons.lock),
             suffixIcon: Icon(Icons.visibility_off),
           ),
@@ -37,12 +38,12 @@ class LoginFormWidget extends StatelessWidget {
           children: [
             Switch(value: true, onChanged: (value) {}),
             const SizedBox(width: 8),
-            const Text("Remember me"),
+             Text(context.tr('remember_me')),
             Spacer(),
             TextButton(
               onPressed: () {},
-              child: const Text(
-                "Forgot Password?",
+              child:  Text(
+                context.tr('forgot_password'),
                 style: TextStyle(color: Colors.black),
               ),
             ),

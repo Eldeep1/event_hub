@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/domain/model/event_model.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,8 @@ class EventDetailsHeaderView extends StatelessWidget {
                   eventModel?.imageUrl ??
                       'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1000',
                   fit: BoxFit.cover,
-                  semanticLabel: eventModel?.description ?? 'Event image',
+                  semanticLabel:
+                      eventModel?.description ?? context.tr('event_image'),
                 ),
                 // Gradient overlay
                 Container(
@@ -70,9 +72,9 @@ class EventDetailsHeaderView extends StatelessWidget {
                       onPressed: () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Event Details',
-                      style: TextStyle(
+                    Text(
+                      context.tr('event_details'),
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
@@ -132,9 +134,9 @@ class EventDetailsHeaderView extends StatelessWidget {
                   const SizedBox(width: 8),
 
                   // Going Text
-                  const Text(
-                    '+20 Going',
-                    style: TextStyle(
+                  Text(
+                    context.tr('going_count'),
+                    style: const TextStyle(
                       color: Color(0xFF5B67FA), // Matches the blue in the image
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
@@ -156,9 +158,9 @@ class EventDetailsHeaderView extends StatelessWidget {
                         vertical: 10,
                       ),
                     ),
-                    child: const Text(
-                      'Invite',
-                      style: TextStyle(
+                    child: Text(
+                      context.tr('invite'),
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/data/data_source/local/shared_preferences.dart';
 import 'package:event_hub/data/data_source/remote/event_remote_data_source.dart';
 import 'package:event_hub/data/repoisitory/event_repo/event_repo_imp.dart';
@@ -14,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await EasyLocalization.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
 
   final storage = SharedPreferencesStorage(prefs);
@@ -23,7 +24,15 @@ Future<void> main() async {
   final eventRemoteDataSource = EventRemoteDataSource();
   final eventRepo = EventRepoImp(remoteDataSource: eventRemoteDataSource);
 
-  runApp(MyApp(splashRepo: splashRepo, eventRepo: eventRepo));
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      startLocale: const Locale('ar'),
+      child: MyApp(splashRepo: splashRepo, eventRepo: eventRepo),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -41,6 +50,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<EventRepository>.value(value: eventRepo),
       ],
       child: MaterialApp(
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
         initialRoute: AppRoutes.splashScreen,
         onGenerateRoute: RouterGenerator.generateRoute,
         theme: ThemeData(

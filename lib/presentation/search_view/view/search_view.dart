@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/presentation/search_view/view/widgets/search_view_event_card_builder.dart';
 import 'package:event_hub/presentation/search_view/view/widgets/search_view_search_bar.dart';
 import 'package:event_hub/presentation/search_view/view_model/search_cubit.dart';
@@ -23,9 +24,9 @@ class SearchView extends StatelessWidget {
             icon: const Icon(Icons.arrow_back, color: Colors.black, size: 28),
             onPressed: () => Navigator.pop(context),
           ),
-          title: const Text(
-            'Search',
-            style: TextStyle(
+          title: Text(
+            context.tr('search'),
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 24,
               fontWeight: FontWeight.w600,
@@ -42,10 +43,10 @@ class SearchView extends StatelessWidget {
               child: BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   if (state.filteredEvents.isEmpty) {
-                    return const Center(
+                    return Center(
                       child: Text(
-                        'No events found',
-                        style: TextStyle(color: Colors.grey),
+                        context.tr('no_events_found'),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     );
                   }

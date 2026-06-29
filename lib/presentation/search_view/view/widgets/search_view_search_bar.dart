@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/presentation/search_view/view_model/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,9 +49,9 @@ class _SearchViewSearchBarState extends State<SearchViewSearchBar> {
             child: TextField(
               onChanged: _onChanged,
               style: const TextStyle(fontSize: 18),
-              decoration: const InputDecoration(
-                hintText: 'Search...',
-                hintStyle: TextStyle(
+              decoration: InputDecoration(
+                hintText: context.tr('search_hint'),
+                hintStyle: const TextStyle(
                   color: Colors.grey,
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
@@ -83,9 +84,9 @@ class _SearchViewSearchBarState extends State<SearchViewSearchBar> {
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Text(
-                  'Filters',
-                  style: TextStyle(
+                Text(
+                  context.tr('filters'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,

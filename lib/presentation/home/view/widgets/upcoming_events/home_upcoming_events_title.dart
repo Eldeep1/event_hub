@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeUpcomingEventsTitle extends StatelessWidget {
@@ -8,7 +9,7 @@ class HomeUpcomingEventsTitle extends StatelessWidget {
     return Row(
           children: [
             Text(
-              "Upcoming Events",
+              context.tr("upcoming_events"),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -16,7 +17,7 @@ class HomeUpcomingEventsTitle extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              "See All",
+              context.tr("see_all"),
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as context;
 import 'package:flutter/material.dart';
 
 Widget buildBuyTicketButton() {
@@ -26,10 +27,10 @@ Widget buildBuyTicketButton() {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Expanded(
+                 Expanded(
                   child: Center(
                     child: Text(
-                      'BUY TICKET \$120',
+                      context.tr('buy_ticket'),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

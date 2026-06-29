@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/presentation/events_view/view_model/events_cubit.dart';
 import 'package:event_hub/presentation/events_view/view_model/states.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class EventsViewToggleSwitch extends StatelessWidget {
           Expanded(
             child: _buildToggleButton(
               context: context,
-              title: 'UPCOMING',
+              title: context.tr('upcoming_events'),
               isSelected: currentTab == EventTab.upcoming,
               onTap: () => context.read<EventsCubit>().switchTab(EventTab.upcoming),
             ),
@@ -29,7 +30,7 @@ class EventsViewToggleSwitch extends StatelessWidget {
           Expanded(
             child: _buildToggleButton(
               context: context,
-              title: 'PAST EVENTS',
+              title: context.tr('past_events'),
               isSelected: currentTab == EventTab.past,
               onTap: () => context.read<EventsCubit>().switchTab(EventTab.past),
             ),

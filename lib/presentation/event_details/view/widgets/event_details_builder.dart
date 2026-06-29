@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/domain/model/event_model.dart';
 import 'package:event_hub/presentation/event_details/view/widgets/event_details_info_tile.dart';
 import 'package:event_hub/presentation/event_details/view/widgets/event_details_organizer_tile.dart';
 import 'package:flutter/material.dart';
 
-Widget buildEventDetails(EventModel eventModel) {
+Widget buildEventDetails(BuildContext context, EventModel eventModel) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 24.0),
     child: Column(
@@ -33,16 +34,16 @@ Widget buildEventDetails(EventModel eventModel) {
           title: eventModel.location,
           subtitle: eventModel.organizerName.isNotEmpty
               ? eventModel.organizerName
-              : 'Location details',
+              : context.tr('location_details'),
         ),
         const SizedBox(height: 24),
 
         const BuildOrganizerTile(),
         const SizedBox(height: 24),
 
-        const Text(
-          'About Event',
-          style: TextStyle(
+        Text(
+          context.tr('about_event'),
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: Color(0xFF120D26),
@@ -53,7 +54,7 @@ Widget buildEventDetails(EventModel eventModel) {
         Text(
           eventModel.description.isNotEmpty
               ? eventModel.description
-              : 'No description available for this event.',
+              : context.tr('no_description_available'),
           style: const TextStyle(
             fontSize: 16,
             height: 1.6,

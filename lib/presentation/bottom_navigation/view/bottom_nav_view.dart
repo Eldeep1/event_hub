@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_cubit.dart';
 import 'package:event_hub/presentation/bottom_navigation/cubit/bottom_nav_states.dart';
 import 'package:event_hub/presentation/bottom_navigation/view/widgets/bottom_nav_icon_view.dart';
@@ -48,7 +49,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.explore,
-                      label: 'Explore',
+                      label: context.tr("explore"),
                       isActive: currentIndex == 0,
                       onTap: () => context.read<BottomNavCubit>().changeTab(0),
                     ),
@@ -56,7 +57,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.calendar_today,
-                      label: 'Events',
+                      label: context.tr("events"),
                       isActive: currentIndex == 1,
                       onTap: () => context.read<BottomNavCubit>().changeTab(1),
                     ),
@@ -65,7 +66,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.location_on,
-                      label: 'Map',
+                      label: context.tr("map"),
                       isActive: currentIndex == 2,
                       onTap: () => context.read<BottomNavCubit>().changeTab(2),
                     ),
@@ -73,7 +74,7 @@ class BottomNavView extends StatelessWidget {
                   Expanded(
                     child: BottomNavIcon(
                       icon: Icons.person,
-                      label: 'Profile',
+                      label: context.tr("profile"),
                       isActive: currentIndex == 3,
                       onTap: () => context.read<BottomNavCubit>().changeTab(3),
                     ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class LoginHeader extends StatelessWidget {
@@ -11,7 +12,7 @@ class LoginHeader extends StatelessWidget {
         Image.asset('assets/images/login_logo.png'),
         const SizedBox(height: 8),
         Text(
-          "Event Hub",
+          context.tr('app_title'),
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.bold,

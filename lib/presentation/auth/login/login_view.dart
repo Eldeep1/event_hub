@@ -1,9 +1,8 @@
-import 'package:event_hub/presentation/auth/register/view/register_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/presentation/auth/widgets/auth_buttons_widget.dart';
 import 'package:event_hub/presentation/auth/login/widgets/login_form_widget.dart';
 import 'package:event_hub/presentation/auth/login/widgets/login_header.dart';
 import 'package:event_hub/presentation/auth/widgets/auth_footer_widget.dart';
-import 'package:event_hub/presentation/bottom_navigation/view/bottom_nav_view.dart';
 import 'package:event_hub/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,7 @@ class LoginView extends StatelessWidget {
               const LoginFormWidget(),
               const SizedBox(height: 36),
               AuthButtonsWidget(
-                mainButtonText: "Sign In",
+                mainButtonText: context.tr('sign_in'),
                 onMainButtonPressed: () {
                   Navigator.pushNamed(
                     context,
@@ -34,8 +33,8 @@ class LoginView extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               AuthFooterWidget(
-                text: "Don't have an account?",
-                buttonText: "Sign Up",
+                text: context.tr('no_account'),
+                buttonText: context.tr('sign_up'),
                 onButtonPressed: () {
                   Navigator.pushNamed(
                     context,
