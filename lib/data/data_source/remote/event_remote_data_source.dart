@@ -1,4 +1,5 @@
 import 'package:event_hub/data/model/event_response.dart';
+import 'package:event_hub/data/model/category_response.dart';
 import 'package:event_hub/data/network/api_client.dart';
 import 'package:event_hub/data/network/network_constants.dart';
 import 'package:event_hub/data/network/network_errors.dart';
@@ -47,5 +48,28 @@ class EventRemoteDataSource {
     }
 
     return EventResponse.fromJson(responseData);
+  }
+
+  Future<List<CategoryResponse>> getCategories() async {
+    final response = await apiClient.get<Map<String, dynamic>>(
+      NetworkConstants.classificationsPath,
+      queryParameters: {'apikey': NetworkConstants.apiKey},
+    );
+
+    final responseData = response.data;
+    if (responseData == null) {
+      throw NetworkException(
+        'Empty response body from classifications request',
+      );
+    }
+
+    final embedded = responseData['_embedded'] as Map<String, dynamic>?;
+    final classifications =
+        embedded?['classifications'] as List<dynamic>? ?? [];
+
+    return classifications
+        .whereType<Map<String, dynamic>>()
+        .map(CategoryResponse.fromJson)
+        .toList();
   }
 }

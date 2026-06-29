@@ -4,6 +4,7 @@ class NetworkConstants {
   static const Duration connectTimeout = Duration(seconds: 15);
   static const Duration receiveTimeout = Duration(seconds: 15);
   static const String eventsPath = '/events.json';
+  static const String classificationsPath = '/classifications.json';
 
   static Map<String, dynamic> eventsQueryParameters({
     String? keyword,
