@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:event_hub/domain/model/event_model.dart';
+import 'package:event_hub/presentation/saved_events/view_model/cubit/saved_events_cubit.dart';
+import 'package:event_hub/presentation/saved_events/view_model/states/saved_events_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EventDetailsHeaderView extends StatelessWidget {
   const EventDetailsHeaderView({super.key, this.eventModel});
@@ -81,16 +84,27 @@ class EventDetailsHeaderView extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    // Bookmark Button
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: IconButton(
-                        icon: const Icon(Icons.bookmark, color: Colors.white),
-                        onPressed: () {
-                          // Handle bookmark action
+                      child: BlocBuilder<SavedEventsCubit, SavedEventsState>(
+                        builder: (context, state) {
+                          final isSaved = state.isSaved;
+                          return IconButton(
+                            icon: Icon(
+                              isSaved ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.white,
+                            ),
+                            onPressed: eventModel == null
+                                ? null
+                                : () {
+                                    context
+                                        .read<SavedEventsCubit>()
+                                        .toggleSavedEvent(eventModel!);
+                                  },
+                          );
                         },
                       ),
                     ),

@@ -5,6 +5,7 @@ import 'package:event_hub/presentation/bottom_navigation/view/widgets/bottom_nav
 import 'package:event_hub/presentation/events_view/view/events_view.dart';
 import 'package:event_hub/presentation/home/view/home_view.dart';
 import 'package:event_hub/presentation/profile_view/view/profile_view.dart';
+import 'package:event_hub/presentation/saved_events/view/saved_events_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +15,7 @@ class BottomNavView extends StatelessWidget {
   final List<Widget> _pages = [
     const HomeView(),
     const EventsPage(),
-    const Center(child: Text("Map View", style: TextStyle(fontSize: 24))),
+    const SavedEventsView(),
     const ProfileView(),
   ];
 
@@ -65,8 +66,8 @@ class BottomNavView extends StatelessWidget {
                   const Spacer(), // FAB space
                   Expanded(
                     child: BottomNavIcon(
-                      icon: Icons.location_on,
-                      label: context.tr("map"),
+                      icon: Icons.favorite,
+                      label: context.tr("saved_events"),
                       isActive: currentIndex == 2,
                       onTap: () => context.read<BottomNavCubit>().changeTab(2),
                     ),
